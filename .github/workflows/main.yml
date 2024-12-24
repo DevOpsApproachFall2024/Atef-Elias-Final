@@ -1,0 +1,32 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    # Set up Ruby
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2
+
+    # Install dependencies
+    - name: Install dependencies
+      run: |
+        bundle install
+
+    # Run Linting
+    - name: Run RuboCop
+      run: |
+        bundle exec rubocop
