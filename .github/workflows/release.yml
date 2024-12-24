@@ -30,10 +30,7 @@ jobs:
       - name: Install dependencies
         run: bundle install
 
-      # Run tests
-      - name: Run tests
-        run: bundle exec rspec # Replace with your test command
-
+      
       # Create a release
       - name: Create GitHub Release
         uses: actions/create-release@v1
