@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[8.0].define(version: 2024_12_24_200430) do
+=======
+ActiveRecord::Schema[8.0].define(version: 2024_12_24_195601) do
+>>>>>>> main
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
