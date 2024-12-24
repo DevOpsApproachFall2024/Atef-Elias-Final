@@ -10,6 +10,10 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: backend # Ensure this points to the folder with your Gemfile
+
     steps:
       # Checkout the repository
       - name: Checkout code
@@ -28,7 +32,7 @@ jobs:
 
       # Run tests
       - name: Run tests
-        run: bundle exec rspec # or your test command
+        run: bundle exec rspec # Replace with your test command
 
       # Create a release
       - name: Create GitHub Release
