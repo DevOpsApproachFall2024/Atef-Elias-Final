@@ -1,0 +1,44 @@
+name: Ruby Linting
+
+on:
+  # Trigger linting on pull requests and pushes to specific branches
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+      
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Set up Ruby
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2  # Use your project's Ruby version
+        bundler-cache: true
+
+    # Install dependencies
+    - name: Install dependencies
+      run: bundle install
+
+    # Run RuboCop
+    - name: Run RuboCop
+      run: bundle exec rubocop
+
+    # Annotate PR with RuboCop output (optional)
+    - name: Annotate RuboCop Issues
+      if: failure()
+      uses: dorny/paths-filter@v2
+      with:
+        filters: |
+          lint:
+            - '**/*.rb'
