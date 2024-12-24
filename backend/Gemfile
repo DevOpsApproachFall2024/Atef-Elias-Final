@@ -39,6 +39,7 @@ gem "bcrypt", "~> 3.1.13"  # For password hashing
 gem "jwt", "~> 2.5"        # For generating and verifying JSON Web Tokens
 
 
+
 gem "bcrypt", "~> 3.1.13"
 
 group :development, :test do

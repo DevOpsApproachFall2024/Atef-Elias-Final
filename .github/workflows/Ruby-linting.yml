@@ -32,3 +32,12 @@ jobs:
 
       - name: Run RuboCop
         run: bundle exec rubocop
+
+      # Optional: Annotate PR with RuboCop output if linting fails
+      - name: Annotate RuboCop Issues
+        if: failure()
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            lint:
+              - '**/*.rb'
