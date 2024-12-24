@@ -1,4 +1,4 @@
-name: Lint
+name: Ruby Linting
 
 on:
   pull_request:
@@ -15,20 +15,20 @@ jobs:
 
     defaults:
       run:
-        working-directory: backend  # Set the working directory to backend
+        working-directory: backend
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.2.2 # Replace with your project's Ruby version
-        bundler-cache: true
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2 # Replace with your Ruby version
+          bundler-cache: true
 
-    - name: Install dependencies
-      run: bundle install
+      - name: Install dependencies
+        run: bundle install
 
-    - name: Run RuboCop
-      run: bundle exec rubocop
+      - name: Run RuboCop
+        run: bundle exec rubocop
