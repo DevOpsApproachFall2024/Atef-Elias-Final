@@ -14,3 +14,139 @@ ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
   [1m[35m (274.5ms)[0m  [1m[35mCREATE DATABASE "todo_backend_development" ENCODING = 'unicode' /*application='TodoBackend'*/[0m
   [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='TodoBackend'*/[0m
   [1m[35m (150.4ms)[0m  [1m[35mCREATE DATABASE "todo_backend_test" ENCODING = 'unicode' /*application='TodoBackend'*/[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[35mSET search_path TO public /*application='TodoBackend'*/[0m
+  [1m[35m (63.4ms)[0m  [1m[35mCREATE DATABASE "todo_backend_development" ENCODING = 'unicode' /*application='TodoBackend'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='TodoBackend'*/[0m
+  [1m[35m (19.6ms)[0m  [1m[35mCREATE DATABASE "todo_backend_test" ENCODING = 'unicode' /*application='TodoBackend'*/[0m
+  [1m[35m (11.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='TodoBackend'*/[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='TodoBackend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7068432963284855610) /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2024-12-24 19:56:10.125217', '2024-12-24 19:56:10.125218') RETURNING "key" /*application='TodoBackend'*/[0m
+Migrating to CreateUsers (20241224195537)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='TodoBackend'*/[0m
+  [1m[35m (9.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "email" character varying, "password_digest" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241224195537') RETURNING "version" /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='TodoBackend'*/[0m
+Migrating to CreateTasks (20241224195601)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='TodoBackend'*/[0m
+  [1m[35m (8.7ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" bigserial primary key, "title" character varying, "description" text, "status" character varying, "user_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_4d2a9e4d7e"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='TodoBackend'*/[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_user_id" ON "tasks" ("user_id") /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241224195601') RETURNING "version" /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='TodoBackend'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(7068432963284855610) /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='TodoBackend'*/[0m
+  [1m[36mUser Exists? (3.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'test@example.com' LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = 'testuser' LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mUser Create (1.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ('testuser', 'test@example.com', '$2a$12$nuOyJGtEHEUj5bjBFA7oWO4Gy0kNLeSlhmhGhMBSyMlk37hYdvbuq', '2024-12-24 19:57:00.546191', '2024-12-24 19:57:00.546191') RETURNING "id" /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='TodoBackend'*/[0m
+  [1m[36mTask Create (51.9ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "status", "user_id", "created_at", "updated_at") VALUES ('Task 1', 'Description for task 1', 'Pending', 1, '2024-12-24 19:57:00.576404', '2024-12-24 19:57:00.576404') RETURNING "id" /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='TodoBackend'*/[0m
+  [1m[36mTask Create (3.7ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "status", "user_id", "created_at", "updated_at") VALUES ('Task 2', 'Description for task 2', 'Pending', 1, '2024-12-24 19:57:00.629983', '2024-12-24 19:57:00.629983') RETURNING "id" /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='TodoBackend'*/[0m
+  [1m[36mTask Create (1.0ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "status", "user_id", "created_at", "updated_at") VALUES ('Task 3', 'Description for task 3', 'Pending', 1, '2024-12-24 19:57:00.634643', '2024-12-24 19:57:00.634643') RETURNING "id" /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mBEGIN /*application='TodoBackend'*/[0m
+  [1m[36mUser Exists? (2.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'test@example.com' LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = 'testuser' LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='TodoBackend'*/[0m
+  [1m[36mUser Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'test@example.com' LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = 'testuser' LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK /*application='TodoBackend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7068432963284855610) /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(7068432963284855610) /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='TodoBackend'*/[0m
+  [1m[35m (8099.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "todo_backend_development" /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='TodoBackend'*/[0m
+  [1m[35m (70.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "todo_backend_development" /*application='TodoBackend'*/[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[35mSET search_path TO public /*application='TodoBackend'*/[0m
+  [1m[35m (69.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "todo_backend_test" /*application='TodoBackend'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='TodoBackend'*/[0m
+  [1m[35m (90.8ms)[0m  [1m[35mCREATE DATABASE "todo_backend_development" ENCODING = 'unicode' /*application='TodoBackend'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='TodoBackend'*/[0m
+  [1m[35m (63.7ms)[0m  [1m[35mCREATE DATABASE "todo_backend_test" ENCODING = 'unicode' /*application='TodoBackend'*/[0m
+  [1m[35mSQL (24.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='TodoBackend'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "tasks" CASCADE /*application='TodoBackend'*/[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" bigserial primary key, "title" character varying, "description" text, "status" character varying, "user_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='TodoBackend'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_user_id" ON "tasks" ("user_id") /*application='TodoBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE /*application='TodoBackend'*/[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "email" character varying, "password_digest" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='TodoBackend'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "tasks" ADD CONSTRAINT "fk_rails_4d2a9e4d7e"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+ /*application='TodoBackend'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20241224195601) /*application='TodoBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20241224195537); /*application='TodoBackend'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2024-12-24 19:59:24.641204', '2024-12-24 19:59:24.641205') RETURNING "key" /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '3619862c1e8fb2d134125cdea10f0e0522f1000e', '2024-12-24 19:59:24.642899', '2024-12-24 19:59:24.642899') RETURNING "key" /*application='TodoBackend'*/[0m
+  [1m[35mSQL (15.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='TodoBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "tasks" CASCADE /*application='TodoBackend'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" bigserial primary key, "title" character varying, "description" text, "status" character varying, "user_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='TodoBackend'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_user_id" ON "tasks" ("user_id") /*application='TodoBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE /*application='TodoBackend'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "email" character varying, "password_digest" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='TodoBackend'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "tasks" ADD CONSTRAINT "fk_rails_4d2a9e4d7e"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+ /*application='TodoBackend'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20241224195601) /*application='TodoBackend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20241224195537); /*application='TodoBackend'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2024-12-24 19:59:24.675544', '2024-12-24 19:59:24.675545') RETURNING "key" /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.2ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'test', "updated_at" = '2024-12-24 19:59:24.677092' WHERE "ar_internal_metadata"."key" = 'environment' /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '3619862c1e8fb2d134125cdea10f0e0522f1000e', '2024-12-24 19:59:24.678479', '2024-12-24 19:59:24.678480') RETURNING "key" /*application='TodoBackend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='TodoBackend'*/[0m
+  [1m[36mUser Exists? (2.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'test@example.com' LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = 'testuser' LIMIT 1 /*application='TodoBackend'*/[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ('testuser', 'test@example.com', '$2a$12$6IV7uApOOlV1AXpasV0qAeYCopC1tbKdvvJxpgVUfZODVoa8B3Nz2', '2024-12-24 19:59:24.954322', '2024-12-24 19:59:24.954322') RETURNING "id" /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='TodoBackend'*/[0m
+  [1m[36mTask Create (2.0ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "status", "user_id", "created_at", "updated_at") VALUES ('Task 1', 'Description for task 1', 'Pending', 1, '2024-12-24 19:59:24.967014', '2024-12-24 19:59:24.967014') RETURNING "id" /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='TodoBackend'*/[0m
+  [1m[36mTask Create (0.9ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "status", "user_id", "created_at", "updated_at") VALUES ('Task 2', 'Description for task 2', 'Pending', 1, '2024-12-24 19:59:24.970295', '2024-12-24 19:59:24.970295') RETURNING "id" /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='TodoBackend'*/[0m
+  [1m[36mTask Create (0.9ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "status", "user_id", "created_at", "updated_at") VALUES ('Task 3', 'Description for task 3', 'Pending', 1, '2024-12-24 19:59:24.972338', '2024-12-24 19:59:24.972338') RETURNING "id" /*application='TodoBackend'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='TodoBackend'*/[0m
