@@ -43,6 +43,7 @@ gem "jwt", "~> 2.5"        # For generating and verifying JSON Web Tokens
 gem "bcrypt", "~> 3.1.13"
 
 group :development, :test do
+  gem "rspec-rails", "~> 5.0"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
