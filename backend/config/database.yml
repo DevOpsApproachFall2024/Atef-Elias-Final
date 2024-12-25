@@ -4,18 +4,9 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: postgres
   password: Atef2004
-  host: localhost
+  host: db
+  port: 5432
 
 development:
   <<: *default
   database: todo_backend_development
-
-test:
-  <<: *default
-  database: todo_backend_test
-
-production:
-  <<: *default
-  database: todo_backend_production
-  username: todo
-  password: Atef2004

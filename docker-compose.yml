@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: development
+      DB_HOST: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Atef2004
+      POSTGRES_DB: todo_backend_development
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+
+    command: bash -c "rails db:migrate && rails server -b 0.0.0.0"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+
+  db:
+    image: postgres:16
+    ports:
+      - "5434:5432" # Changing host port to 5434
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Atef2004
+      POSTGRES_DB: todo_backend_development
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
