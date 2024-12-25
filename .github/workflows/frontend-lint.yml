@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+      - feature/frontend
 
 jobs:
   lint:
@@ -15,7 +16,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./frontend # Specify the frontend directory
+        working-directory: ./frontend
 
     steps:
       # Checkout the repository
@@ -35,11 +36,3 @@ jobs:
       # Run ESLint
       - name: Run ESLint
         run: npm run lint
-
-      # Upload ESLint results
-      - name: Upload ESLint report (optional)
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: eslint-report
-          path: ./eslint-report.json
