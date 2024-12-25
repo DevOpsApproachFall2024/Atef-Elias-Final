@@ -1,7 +1,3 @@
-Here’s the updated **README.md** with the Docker-specific details highlighted:
-
----
-
 # Todo App with Ruby on Rails and Vue.js
 
 ## Overview
@@ -102,6 +98,16 @@ docker compose down -v
 └── README.md
 ```
 
+![Alt Text](./collection/Signup.png)
+![Alt Text](./collection/Login.png)
+![Alt Text](./collection/Task.png)
+![Alt Text](./collection/docker.png)
+
 ---
 
 Happy birthday / Merry christmas / Happy new year 
+
+
+Group : 
+- Atef Fawaz
+- Elias Ghanem 
