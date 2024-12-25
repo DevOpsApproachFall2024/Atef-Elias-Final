@@ -7,31 +7,25 @@ on:
 
 jobs:
   release:
-    name: Release
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: backend # Ensure this points to the folder with your Gemfile
+        working-directory: backend
 
     steps:
-      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up Ruby environment
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2 # Replace with your Ruby version
+          ruby-version: 3.2
           bundler-cache: true
 
-      # Install dependencies
       - name: Install dependencies
         run: bundle install
 
-      
-      # Create a release
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
